@@ -32,6 +32,8 @@ import nvlxLabsLogo from "@/assets/sponsors/nvlx-labs.png";
 import andonstarLogo from "@/assets/sponsors/andonstar.png";
 import infantry29Patch from "@/assets/sponsors/29th-infantry-division.svg";
 import somireddyLawLogo from "@/assets/sponsors/somireddy-law-group.png";
+import cruisinOceanCityLogo from "@/assets/sponsors/cruisin-ocean-city.png";
+import dinoLiteLogo from "@/assets/sponsors/dino-lite.png";
 
 type Sponsor = {
   name: string;
@@ -121,6 +123,11 @@ export const sponsorGroups: SponsorGroup[] = [
         href: "https://somireddylaw.com/",
       },
       {
+        name: "Cruisin Ocean City",
+        logo: cruisinOceanCityLogo,
+        href: "https://cruisinoceancity.com/",
+      },
+      {
         name: "LUCID Vision Labs",
         logo: lucidLogo,
         href: "https://thinklucid.com/",
@@ -167,6 +174,13 @@ export const sponsorGroups: SponsorGroup[] = [
       { name: "Savox", logo: savoxLogo, href: "https://www.teamsavox.com/", tag: HARDWARE },
       { name: "MISUMI", logo: misumiLogo, href: "https://us.misumi-ec.com/", tag: HARDWARE },
       { name: "Andonstar", logo: andonstarLogo, href: "https://andonstar.com/", tag: HARDWARE },
+      {
+        name: "Dino-Lite",
+        logo: dinoLiteLogo,
+        href: "https://www.dinolite.us/",
+        tag: HARDWARE,
+        darkPanel: true,
+      },
     ],
   },
 ];
