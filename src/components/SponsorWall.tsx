@@ -34,6 +34,7 @@ import infantry29Patch from "@/assets/sponsors/29th-infantry-division.svg";
 import somireddyLawLogo from "@/assets/sponsors/somireddy-law-group.png";
 import cruisinOceanCityLogo from "@/assets/sponsors/cruisin-ocean-city.png";
 import dinoLiteLogo from "@/assets/sponsors/dino-lite.png";
+import triadEngineeringLogo from "@/assets/sponsors/triad-engineering.svg";
 
 type Sponsor = {
   name: string;
@@ -126,6 +127,11 @@ export const sponsorGroups: SponsorGroup[] = [
         name: "Cruisin Ocean City",
         logo: cruisinOceanCityLogo,
         href: "https://cruisinoceancity.com/",
+      },
+      {
+        name: "Triad Engineering",
+        logo: triadEngineeringLogo,
+        href: "https://triadeng.com/",
       },
       {
         name: "LUCID Vision Labs",
