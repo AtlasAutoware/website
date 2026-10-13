@@ -35,6 +35,7 @@ import somireddyLawLogo from "@/assets/sponsors/somireddy-law-group.png";
 import cruisinOceanCityLogo from "@/assets/sponsors/cruisin-ocean-city.png";
 import dinoLiteLogo from "@/assets/sponsors/dino-lite.png";
 import triadEngineeringLogo from "@/assets/sponsors/triad-engineering.svg";
+import cellsiteSolutionsLogo from "@/assets/sponsors/cellsite-solutions.png";
 
 type Sponsor = {
   name: string;
@@ -132,6 +133,11 @@ export const sponsorGroups: SponsorGroup[] = [
         name: "Triad Engineering",
         logo: triadEngineeringLogo,
         href: "https://triadeng.com/",
+      },
+      {
+        name: "CellSite Solutions",
+        logo: cellsiteSolutionsLogo,
+        href: "https://www.cellsitesolutions.com/",
       },
       {
         name: "LUCID Vision Labs",
