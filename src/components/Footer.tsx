@@ -58,8 +58,11 @@ export function Footer() {
       </div>
       <div className="border-t border-line">
         <p className="mx-auto max-w-7xl px-6 py-5 text-xs leading-relaxed text-ink-subtle">
-          © {new Date().getFullYear()} Atlas Autoware · Not affiliated with, endorsed by, or
-          sponsored by the Autoware Foundation.
+          © {new Date().getFullYear()} Atlas Autoware ·{" "}
+          <Link to="/privacy" className="aa-link">
+            Privacy Policy
+          </Link>{" "}
+          · Not affiliated with, endorsed by, or sponsored by the Autoware Foundation.
         </p>
       </div>
     </footer>
