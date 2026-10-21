@@ -1,6 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Heart, Package, Plane, ShieldCheck, Wrench } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  Heart,
+  Landmark,
+  Mail,
+  Package,
+  Plane,
+  Share2,
+  ShieldCheck,
+  Wrench,
+} from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Backdrop, Eyebrow, SectionHeader } from "@/components/Section";
@@ -24,6 +36,7 @@ export const Route = createFileRoute("/donate")({
 });
 
 const PAYPAL = "https://www.paypal.com/donate?hosted_button_id=88VLJ6TS6554Q&amount=";
+const PPGF = "https://www.paypal.com/fundraiser/charity/4692391";
 
 function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState("$50");
@@ -274,6 +287,76 @@ function DonatePage() {
                 </figcaption>
               </figure>
             </div>
+          </div>
+        </section>
+
+        {/* More ways to give */}
+        <section id="more-ways" className="py-20 md:py-24 scroll-mt-16">
+          <div className="mx-auto max-w-6xl px-6">
+            <SectionHeader
+              center
+              eyebrow="Other ways to give"
+              title="DAFs, Matching Gifts, and Checks"
+              lead="If PayPal isn't how you give, these all reach us too. Our IRS name is AtlasAutoware (one word), EIN 88-3747265, Fairfax, VA."
+            />
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="aa-card p-7 text-left">
+                <span className="aa-icon-tile">
+                  <Landmark aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-ink">Donor-advised fund</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  Recommend a grant from Fidelity Charitable, Schwab (DAFgiving360), Vanguard
+                  Charitable, or any other DAF. Search for{" "}
+                  <span className="font-semibold text-ink">AtlasAutoware</span> or EIN 88-3747265.
+                </p>
+              </div>
+              <div className="aa-card p-7 text-left">
+                <span className="aa-icon-tile">
+                  <Building2 aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-ink">Employer matching</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  Many employers double gifts through Benevity or YourCause. Look us up in your
+                  company's giving portal by EIN 88-3747265.
+                </p>
+              </div>
+              <div className="aa-card p-7 text-left">
+                <span className="aa-icon-tile">
+                  <Share2 aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-ink">Start a fundraiser</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  We're on PayPal Giving Fund, so you can raise money for us on Facebook, Instagram,
+                  or GoFundMe.
+                </p>
+                <a
+                  href={PPGF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold aa-link"
+                >
+                  Our Giving Fund page <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </a>
+              </div>
+              <div className="aa-card p-7 text-left">
+                <span className="aa-icon-tile">
+                  <Mail aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-ink">Mail a check</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  Payable to Atlas Autoware, 3920 Green Look Court, Fairfax, VA 22033-2725. Need a
+                  W-9 or a receipt? Email{" "}
+                  <a href="mailto:contact@atlasautoware.org" className="aa-link">
+                    contact@atlasautoware.org
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+            <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-ink-subtle">
+              The state notice in the giving section above applies to every way of giving.
+            </p>
           </div>
         </section>
 
