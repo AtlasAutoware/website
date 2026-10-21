@@ -3,7 +3,7 @@ import { Eyebrow } from "@/components/Section";
 
 /** Season goal. Update `raised` here and both the home and donate pages follow. */
 export const SEASON_GOAL = 5000;
-export const SEASON_RAISED = 1311;
+export const SEASON_RAISED = 2979;
 
 const ITEM_ICONS = [Plane, Wrench, Cpu];
 
