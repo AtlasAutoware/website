@@ -3,7 +3,12 @@ import { Eyebrow } from "@/components/Section";
 
 /** Season goal. Update `raised` here and both the home and donate pages follow. */
 export const SEASON_GOAL = 5000;
-export const SEASON_RAISED = 2979;
+// 2,979 + American Legion Post 28's 2,060 (Oct 22, 2026).
+export const SEASON_RAISED = 5039;
+
+/** Shown under the bar once the goal is reached. Raise SEASON_GOAL and it goes away. */
+const GOAL_REACHED_NOTE =
+  "American Legion Quantico–Buck Keyes Post 28 gave $2,060 for car two and took us past the goal. Thank you, Post 28! Anything more still goes to the three things below.";
 
 const ITEM_ICONS = [Plane, Wrench, Cpu];
 
@@ -29,13 +34,23 @@ export function FundraisingProgress({
   items?: Array<{ title: string; desc: string }>;
 }) {
   const pct = Math.min(100, (raised / goal) * 100);
+  const reached = raised >= goal;
   return (
     <div className="aa-card p-8 md:p-10">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
         <div>
-          <Eyebrow>Our goal this season</Eyebrow>
+          <Eyebrow>{reached ? "Season goal reached" : "Our goal this season"}</Eyebrow>
           <h3 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-ink">
-            Help us raise <span className="aa-gradient-text">${goal.toLocaleString()}</span>
+            {reached ? (
+              <>
+                We passed our <span className="aa-gradient-text">${goal.toLocaleString()}</span>{" "}
+                goal
+              </>
+            ) : (
+              <>
+                Help us raise <span className="aa-gradient-text">${goal.toLocaleString()}</span>
+              </>
+            )}
           </h3>
         </div>
         <div className="md:text-right">
@@ -43,7 +58,9 @@ export function FundraisingProgress({
             ${raised.toLocaleString()}
           </div>
           <div className="text-sm text-ink-subtle mt-1">
-            of ${goal.toLocaleString()} raised so far
+            {reached
+              ? `raised this season, goal $${goal.toLocaleString()}`
+              : `of $${goal.toLocaleString()} raised so far`}
           </div>
         </div>
       </div>
@@ -52,11 +69,15 @@ export function FundraisingProgress({
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={goal}
-        aria-valuenow={raised}
+        aria-valuenow={Math.min(raised, goal)}
+        aria-valuetext={`$${raised.toLocaleString()} raised of a $${goal.toLocaleString()} goal`}
         aria-label="Season fundraising progress"
       >
         <div style={{ width: `${pct}%` }} />
       </div>
+      {reached ? (
+        <p className="mt-4 text-sm text-ink-muted leading-relaxed">{GOAL_REACHED_NOTE}</p>
+      ) : null}
       <div className={`mt-8 grid gap-6 ${items.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
         {items.map((item, i) => {
           const Icon = ITEM_ICONS[Math.min(i, ITEM_ICONS.length - 1)];

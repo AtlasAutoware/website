@@ -17,7 +17,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Backdrop, Eyebrow, SectionHeader } from "@/components/Section";
 import { SponsorWall } from "@/components/SponsorWall";
-import { FundraisingProgress, SEASON_GOAL } from "@/components/Fundraising";
+import { FundraisingProgress, SEASON_GOAL, SEASON_RAISED } from "@/components/Fundraising";
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
@@ -118,15 +118,29 @@ function DonatePage() {
                 Thanks for even
                 <span className="block aa-gradient-text pb-1">considering this.</span>
               </h1>
-              <p className="mx-auto mt-8 aa-lead">
-                We're a high school team, so we don't have a budget. We have whatever people are
-                kind enough to give us. Right now we're trying to raise{" "}
-                <span className="font-semibold text-brand-text">
-                  ${SEASON_GOAL.toLocaleString()}
-                </span>{" "}
-                to get to our next competition, build a second, better car, and buy a computer to
-                train its AI. No salaries, no overhead, we promise.
-              </p>
+              {SEASON_RAISED >= SEASON_GOAL ? (
+                <p className="mx-auto mt-8 aa-lead">
+                  We're a high school team, so we don't have a budget. We have whatever people are
+                  kind enough to give us. This season we set out to raise{" "}
+                  <span className="font-semibold text-brand-text">
+                    ${SEASON_GOAL.toLocaleString()}
+                  </span>{" "}
+                  to get to our next competition, build a second, better car, and buy a computer to
+                  train its AI, and thanks to American Legion Post 28 and all our sponsors, we just
+                  passed it. Anything more goes to the same three things. No salaries, no overhead,
+                  we promise.
+                </p>
+              ) : (
+                <p className="mx-auto mt-8 aa-lead">
+                  We're a high school team, so we don't have a budget. We have whatever people are
+                  kind enough to give us. Right now we're trying to raise{" "}
+                  <span className="font-semibold text-brand-text">
+                    ${SEASON_GOAL.toLocaleString()}
+                  </span>{" "}
+                  to get to our next competition, build a second, better car, and buy a computer to
+                  train its AI. No salaries, no overhead, we promise.
+                </p>
+              )}
               <div className="mt-8 inline-flex items-center gap-2 text-sm text-ink-muted">
                 <ShieldCheck className="w-4 h-4 text-brand-text" aria-hidden="true" />
                 Registered 501(c)(3) nonprofit · EIN 88-3747265 · tax-deductible

@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/Section";
+import { POST28, Post28Badge } from "@/components/Post28";
 
 import gmuLogo from "@/assets/sponsors/gmu.png";
 import sickLogo from "@/assets/Sickimg.png";
@@ -40,7 +42,14 @@ import yatesDesygnLogo from "@/assets/sponsors/yates-desygn.png";
 
 type Sponsor = {
   name: string;
-  logo: string;
+  /** Logo file. A sponsor without one can pass `badge` instead. */
+  logo?: string;
+  /** Drawn stand-in for a logo (used for the featured partner). */
+  badge?: ReactNode;
+  /** Where the sponsor is based, shown on the featured partner card. */
+  place?: string;
+  /** A sentence or two of thanks, shown on the featured partner card. */
+  blurb?: string;
   href: string;
   /** Short tag under the logo, e.g. for in-kind hardware sponsors. */
   tag?: string;
@@ -49,7 +58,7 @@ type Sponsor = {
 };
 
 type SponsorGroup = {
-  id: "lab" | "gold" | "silver" | "bronze";
+  id: "partner" | "lab" | "gold" | "silver" | "bronze";
   label: string;
   sponsors: Sponsor[];
 };
@@ -61,6 +70,20 @@ const HARDWARE = "Hardware";
  * shows up on both the home page and the donate page.
  */
 export const sponsorGroups: SponsorGroup[] = [
+  {
+    // October 2026: $2,060 toward car two, the build estimate we quoted the post.
+    id: "partner",
+    label: "Car Two Partner",
+    sponsors: [
+      {
+        name: POST28.fullName,
+        badge: <Post28Badge size="lg" />,
+        place: POST28.place,
+        href: POST28.href,
+        blurb: `In its centennial year, Post 28 gave $${POST28.amount.toLocaleString()} toward car two: the full amount we estimated the car would cost to build, and our largest gift this season. The post's name goes on the car.`,
+      },
+    ],
+  },
   {
     id: "lab",
     label: "Lab Sponsor",
@@ -212,11 +235,44 @@ function SponsorTile({ sponsor, large = false }: { sponsor: Sponsor; large?: boo
       className={`aa-card aa-card--hover aa-card--lift aa-sponsor ${large ? "aa-sponsor--lg" : ""}`}
     >
       <div className={`aa-sponsor__logo ${sponsor.darkPanel ? "aa-sponsor__logo--dark" : ""}`}>
-        <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+        {sponsor.logo ? (
+          <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+        ) : (
+          sponsor.badge
+        )}
       </div>
       <div className="aa-sponsor__meta">
         <p className="aa-sponsor__name">{sponsor.name}</p>
         {sponsor.tag ? <span className="aa-sponsor__tag">{sponsor.tag}</span> : null}
+      </div>
+    </a>
+  );
+}
+
+/** Full-width card for the featured partner, with a line or two of thanks. */
+function PartnerFeature({ sponsor }: { sponsor: Sponsor }) {
+  return (
+    <a
+      href={sponsor.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="aa-card aa-card--lift aa-partner p-4 md:p-5 grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center"
+    >
+      <div className="aa-sponsor__logo aa-partner__logo">
+        {sponsor.logo ? (
+          <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+        ) : (
+          sponsor.badge
+        )}
+      </div>
+      <div className="px-2 pb-2 md:p-4">
+        <p className="aa-display text-2xl md:text-3xl font-bold tracking-tight text-ink">
+          {sponsor.name}
+        </p>
+        {sponsor.place ? <p className="mt-1 text-sm text-ink-subtle">{sponsor.place}</p> : null}
+        {sponsor.blurb ? (
+          <p className="mt-4 text-ink-muted leading-relaxed">{sponsor.blurb}</p>
+        ) : null}
       </div>
     </a>
   );
@@ -254,7 +310,18 @@ export function SponsorWall({ showCta = true }: { showCta?: boolean }) {
           </div>
         ) : null}
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+        {byId.partner.sponsors.length ? (
+          <div className="mt-14">
+            <GroupLabel group={byId.partner} />
+            <div className="grid gap-5">
+              {byId.partner.sponsors.map((s) => (
+                <PartnerFeature key={s.name} sponsor={s} />
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        <div className="mt-12 grid gap-8 md:grid-cols-2">
           {[byId.lab, byId.gold].map((group) => (
             <div key={group.id}>
               <GroupLabel group={group} />

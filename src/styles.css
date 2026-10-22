@@ -280,6 +280,21 @@
 .aa-sponsor__name { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--aa-text-subtle); transition: color .2s; }
 .aa-sponsor:hover .aa-sponsor__name { color: var(--aa-text); }
 .aa-sponsor__tag { flex: none; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--aa-red-badge-text); background: var(--aa-red-dim); border: 1px solid var(--aa-red-border-soft); border-radius: 9999px; padding: 2px 10px; }
+.aa-sponsor-group--partner { color: var(--aa-tier-gold); }
+
+/* Featured partner card (American Legion Post 28) and its type-only badge */
+.aa-partner { border-color: var(--aa-tier-gold-edge); box-shadow: var(--aa-shadow-tier-gold); text-decoration: none; }
+a.aa-partner:hover { border-color: var(--aa-tier-gold); }
+.aa-partner__logo { height: auto; min-height: 200px; padding: 28px 24px; }
+.aa-legion-badge { display: flex; flex-direction: column; align-items: center; text-align: center; color: #14245c; line-height: 1; }
+.aa-legion-badge__top { font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; }
+.aa-legion-badge__num { margin-top: 8px; font-family: var(--font-display); font-size: 48px; font-weight: 700; letter-spacing: -0.01em; }
+.aa-legion-badge__rule { margin: 10px 0 9px; width: 64px; height: 3px; border-radius: 2px; background: #c9a227; }
+.aa-legion-badge__sub { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3d4b7a; }
+.aa-legion-badge--lg .aa-legion-badge__top { font-size: 12px; }
+.aa-legion-badge--lg .aa-legion-badge__num { font-size: 64px; }
+.aa-legion-badge--lg .aa-legion-badge__rule { width: 80px; }
+.aa-legion-badge--lg .aa-legion-badge__sub { font-size: 12px; }
 
 /* ── Navbar ──────────────────────────────────────── */
 .aa-nav { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background-color .3s, box-shadow .3s, border-color .3s; border-bottom: 1px solid transparent; }

@@ -3,7 +3,8 @@ import { ArrowRight, Check } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Backdrop, Eyebrow, SectionHeader } from "@/components/Section";
-import { SEASON_GOAL } from "@/components/Fundraising";
+import { SEASON_GOAL, SEASON_RAISED } from "@/components/Fundraising";
+import { POST28, Post28Badge } from "@/components/Post28";
 
 import carFrontLeft from "@/assets/car-v2/car-front-left.webp";
 import carExploded from "@/assets/car-v2/car-exploded.webp";
@@ -86,6 +87,10 @@ function Hero() {
             than make, like the chassis, lidar, camera and Jetson, are simplified stand-ins. We
             haven't ordered the parts yet, and that's what the fundraiser is for.
           </p>
+          <a href="#on-the-car" className="aa-badge mt-6">
+            <span className="aa-badge__dot" aria-hidden="true" />
+            Backed by {POST28.shortName}
+          </a>
         </div>
 
         <div className="mt-14 relative max-w-5xl mx-auto">
@@ -304,10 +309,29 @@ function BoardCard({
   );
 }
 
-function Patch() {
+function OnTheCar() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="on-the-car" className="py-20 md:py-28 scroll-mt-16">
+      <div className="mx-auto max-w-5xl px-6 grid gap-8">
+        <div className="aa-card aa-partner p-6 md:p-10 grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-center">
+          <div className="aa-sponsor__logo aa-partner__logo">
+            <Post28Badge size="lg" />
+          </div>
+          <div>
+            <SectionHeader
+              eyebrow="On the car"
+              title="Car two will carry Post 28's name."
+              lead={`${POST28.fullName} in ${POST28.place}, gave $${POST28.amount.toLocaleString()} toward car two: the full amount we estimated the car would cost to build. The post marks its 100th anniversary this year, and its name goes on the car when we build it.`}
+            />
+            <p className="mt-4 text-sm text-ink-subtle">
+              Thank you to Commander Michael Hoff and every member of Post 28.{" "}
+              <a href={POST28.href} target="_blank" rel="noopener noreferrer" className="aa-link">
+                Visit the post
+              </a>
+              .
+            </p>
+          </div>
+        </div>
         <div className="aa-card p-8 md:p-12 grid gap-10 md:grid-cols-[auto_1fr] items-center">
           <img
             src={infantry29Patch}
@@ -319,7 +343,7 @@ function Patch() {
           />
           <div>
             <SectionHeader
-              eyebrow="On the car"
+              eyebrow="Also on the car"
               title="Car two will wear the Blue and Gray."
               lead="John Lyon VFW Post 3150 in Arlington asked us to put the shoulder patch of the 29th Infantry Division on car two, and we will. The post's namesake, John Lyon, served in the 29th in World War I. The 29th is a National Guard division based in Northern Virginia. It formed from states that sent soldiers to both sides of the Civil War, which is where its nickname and the two halves of its patch come from."
             />
@@ -343,7 +367,11 @@ function SupportCTA() {
           className="max-w-3xl"
           eyebrow="Help us build it"
           title="Help Us Turn Renders into a Real Car"
-          lead={`Right now car two exists only as design files, and its custom circuit boards alone cost about $2,000. We're raising $${SEASON_GOAL.toLocaleString()} this season for its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`}
+          lead={
+            SEASON_RAISED >= SEASON_GOAL
+              ? `Thanks to ${POST28.shortName} and every sponsor on our wall, we've passed our $${SEASON_GOAL.toLocaleString()} goal for the season. Car two's custom circuit boards alone cost about $2,000, so anything more goes toward its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`
+              : `Right now car two exists only as design files, and its custom circuit boards alone cost about $2,000. We're raising $${SEASON_GOAL.toLocaleString()} this season for its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`
+          }
         />
         <div className="mt-9 flex flex-wrap justify-center gap-4">
           <Link to="/donate" className="aa-btn aa-btn--primary">
@@ -367,7 +395,7 @@ function CarV2Page() {
         <Gallery />
         <WholeCar />
         <Boards />
-        <Patch />
+        <OnTheCar />
         <SupportCTA />
       </main>
       <Footer />

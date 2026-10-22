@@ -14,6 +14,7 @@ import { Footer } from "@/components/Footer";
 import { Backdrop, Eyebrow, SectionHeader } from "@/components/Section";
 import { SponsorWall } from "@/components/SponsorWall";
 import { FundraisingProgress } from "@/components/Fundraising";
+import { Post28Thanks } from "@/components/Post28";
 
 import rcCarPhoto from "@/assets/rc-car.png";
 import carCutout from "@/assets/atlas-car-cutout.webp";
@@ -361,7 +362,7 @@ function Projects() {
     {
       img: carV2Render as string | null,
       title: "Atlas Two",
-      desc: "In design now: two circuit boards we laid out ourselves, a built-in battery pack and a 3D-printed carbon-fiber kit. The picture is a render from our design files.",
+      desc: "In design now: two circuit boards we laid out ourselves, a built-in battery pack and a 3D-printed carbon-fiber kit, backed by American Legion Post 28. The picture is a render from our design files.",
       to: "/car-v2",
       cta: "See the renders",
     },
@@ -514,6 +515,7 @@ export function HomePage() {
       <Nav />
       <main>
         <Hero />
+        <Post28Thanks />
         <LogoCloud />
         <About />
         <RecentEvent />
