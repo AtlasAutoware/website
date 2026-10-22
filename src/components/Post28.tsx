@@ -52,8 +52,8 @@ export function Post28Thanks() {
             <p className="mt-4 text-ink-muted leading-relaxed">
               {POST28.fullName} in {POST28.place}, gave ${POST28.amount.toLocaleString()} toward our
               second car: the full amount we estimated it would cost to build. It came in the year
-              the post marks its 100th anniversary, and it took us past our $5,000 goal for the
-              season. Thank you to Commander Michael Hoff and every member of Post 28.
+              the post marks its 100th anniversary, and it took us past our original $5,000 goal for
+              the season. Thank you to Commander Michael Hoff and every member of Post 28.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link to="/car-v2" hash="on-the-car" className="aa-btn aa-btn--primary">

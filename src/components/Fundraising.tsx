@@ -2,13 +2,18 @@ import { Cpu, Plane, Wrench } from "lucide-react";
 import { Eyebrow } from "@/components/Section";
 
 /** Season goal. Update `raised` here and both the home and donate pages follow. */
-export const SEASON_GOAL = 5000;
-// 2,979 + American Legion Post 28's 2,060 (Oct 22, 2026).
+// Raised from 5,000 to 7,500 on Oct 22, 2026, after Post 28's gift took us past 5,000.
+export const SEASON_GOAL = 7500;
+// 2,979 + American Legion Post 28's 2,060 (check, Oct 22, 2026).
 export const SEASON_RAISED = 5039;
 
-/** Shown under the bar once the goal is reached. Raise SEASON_GOAL and it goes away. */
+/** Shown under the bar while we're still short of the goal. Set to "" to hide it. */
+const PROGRESS_NOTE =
+  "American Legion Quantico–Buck Keyes Post 28 gave $2,060 for car two and took us past our original $5,000 goal, so we set a new one. Thank you, Post 28!";
+
+/** Shown under the bar once the goal is reached. */
 const GOAL_REACHED_NOTE =
-  "American Legion Quantico–Buck Keyes Post 28 gave $2,060 for car two and took us past the goal. Thank you, Post 28! Anything more still goes to the three things below.";
+  "We hit the goal. Thank you to everyone on our sponsor wall! Anything more still goes to the three things below.";
 
 const ITEM_ICONS = [Plane, Wrench, Cpu];
 
@@ -75,8 +80,10 @@ export function FundraisingProgress({
       >
         <div style={{ width: `${pct}%` }} />
       </div>
-      {reached ? (
-        <p className="mt-4 text-sm text-ink-muted leading-relaxed">{GOAL_REACHED_NOTE}</p>
+      {reached || PROGRESS_NOTE ? (
+        <p className="mt-4 text-sm text-ink-muted leading-relaxed">
+          {reached ? GOAL_REACHED_NOTE : PROGRESS_NOTE}
+        </p>
       ) : null}
       <div className={`mt-8 grid gap-6 ${items.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
         {items.map((item, i) => {

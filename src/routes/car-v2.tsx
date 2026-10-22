@@ -370,7 +370,7 @@ function SupportCTA() {
           lead={
             SEASON_RAISED >= SEASON_GOAL
               ? `Thanks to ${POST28.shortName} and every sponsor on our wall, we've passed our $${SEASON_GOAL.toLocaleString()} goal for the season. Car two's custom circuit boards alone cost about $2,000, so anything more goes toward its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`
-              : `Right now car two exists only as design files, and its custom circuit boards alone cost about $2,000. We're raising $${SEASON_GOAL.toLocaleString()} this season for its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`
+              : `Right now car two exists only as design files, and its custom circuit boards alone cost about $2,000. Thanks to ${POST28.shortName} and our other sponsors, we've raised $${SEASON_RAISED.toLocaleString()} of our $${SEASON_GOAL.toLocaleString()} goal this season, for its parts, a computer to train its AI models, and travel to our next competition. Every sponsor gets photo updates as it comes together.`
           }
         />
         <div className="mt-9 flex flex-wrap justify-center gap-4">
