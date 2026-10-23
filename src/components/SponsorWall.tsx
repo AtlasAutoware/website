@@ -31,6 +31,7 @@ import mcleanDentistryLogo from "@/assets/sponsors/mclean-family-dentistry.png";
 import misumiLogo from "@/assets/sponsors/misumi.png";
 import nvlxLabsLogo from "@/assets/sponsors/nvlx-labs.png";
 import andonstarLogo from "@/assets/sponsors/andonstar.png";
+import eloopLogo from "@/assets/sponsors/eloop.png";
 import infantry29Patch from "@/assets/sponsors/29th-infantry-division.svg";
 import somireddyLawLogo from "@/assets/sponsors/somireddy-law-group.png";
 import cruisinOceanCityLogo from "@/assets/sponsors/cruisin-ocean-city.png";
@@ -135,6 +136,7 @@ const sponsorGroups: SponsorGroup[] = [
         href: "https://www.nvlxlabs.com/",
         darkPanel: true,
       },
+      { name: "eLoop", logo: eloopLogo, href: "https://www.eloopllc.com/" },
       {
         // The post asked for the 29th Infantry Division patch on car 2, so the patch stands in for a logo.
         name: "John Lyon VFW Post 3150",
