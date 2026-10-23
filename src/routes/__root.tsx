@@ -9,100 +9,93 @@ import {
 } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 
+import { CarGlyph } from "@/components/drawings/CarGlyph";
+import { Footer } from "@/components/Footer";
+import { PageHead } from "@/components/Ledger";
+import { Nav } from "@/components/Nav";
+import { SITE_URL } from "@/lib/meta";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-base px-4">
-      <div className="absolute inset-0 aa-dot-grid" aria-hidden="true" />
-      <div className="absolute inset-0 aa-red-glow" aria-hidden="true" />
-      <div className="relative max-w-md text-center">
-        <p className="aa-eyebrow">Off track</p>
-        <h1 className="mt-3 text-7xl font-bold aa-gradient-text">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-ink">Page Not Found</h2>
-        <p className="mt-2 text-sm text-ink-muted">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link to="/home" className="aa-btn aa-btn--primary">
-            Go Home
-          </Link>
-        </div>
-      </div>
-    </div>
+    <>
+      <Nav />
+      <main id="main" className="aa-page aa-status">
+        <PageHead title="Page not found" lead="There is nothing at this address.">
+          <CarGlyph className="aa-status__glyph" />
+          <div className="aa-status__actions">
+            <Link to="/" className="aa-btn aa-btn--primary">
+              Go to the home page
+            </Link>
+          </div>
+        </PageHead>
+      </main>
+      <Footer />
+    </>
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-base px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-ink">This Page Didn't Load</h1>
-        <p className="mt-2 text-sm text-ink-muted">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="aa-btn aa-btn--primary"
-          >
-            Try Again
-          </button>
-          <a href="/home" className="aa-btn aa-btn--outline">
-            Go Home
-          </a>
-        </div>
-      </div>
-    </div>
+    <>
+      <Nav />
+      <main id="main" className="aa-page aa-status">
+        <PageHead title="Something went wrong" lead="This page did not load.">
+          <div className="aa-status__actions">
+            <button
+              type="button"
+              onClick={() => {
+                router.invalidate();
+                reset();
+              }}
+              className="aa-btn aa-btn--primary"
+            >
+              Reload
+            </button>
+            <Link to="/" className="aa-btn aa-btn--secondary">
+              Home
+            </Link>
+          </div>
+        </PageHead>
+      </main>
+      <Footer />
+    </>
   );
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  // Site-wide tags only; each route adds its own title, description, og:url and canonical
+  // through pageHead() in lib/meta.ts. The title here is the fallback for the 404 page.
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#030305" },
       { title: "Atlas Autoware" },
-      {
-        name: "description",
-        content:
-          "Atlas Autoware is a student organization building autonomous driving, robotics, embedded systems, and AI-powered mobility technologies.",
-      },
-      {
-        property: "og:title",
-        content: "Atlas Autoware — Building the Future of Autonomous Mobility",
-      },
-      {
-        property: "og:description",
-        content:
-          "Atlas Autoware is a student organization building autonomous driving, robotics, embedded systems, and AI-powered mobility technologies.",
-      },
+      { property: "og:site_name", content: "Atlas Autoware" },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: `${SITE_URL}/og.png` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "Line drawing of a 1/10-scale race car with the words Atlas Autoware",
+      },
       { name: "twitter:card", content: "summary_large_image" },
-      {
-        name: "twitter:title",
-        content: "Atlas Autoware — Building the Future of Autonomous Mobility",
-      },
-      {
-        name: "twitter:description",
-        content:
-          "Atlas Autoware is a student organization building autonomous driving, robotics, embedded systems, and AI-powered mobility technologies.",
-      },
+      { name: "twitter:image", content: `${SITE_URL}/og.png` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap",
       },
     ],
   }),

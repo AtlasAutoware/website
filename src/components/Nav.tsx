@@ -1,24 +1,26 @@
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import atlasLogo from "@/assets/atlas-logo.png";
 
-const navLinks: Array<[string, string]> = [
-  ["Home", "/home"],
-  ["The Car", "/the-car"],
-  ["Car v2", "/car-v2"],
-];
+const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "Car one", to: "/the-car" },
+  { label: "Car two", to: "/car-v2" },
+  { label: "About", to: "/about" },
+] as const;
 
-/** Brand mark + wordmark. The disc mark is inverted in the dark theme (see .aa-brand in styles.css). */
+/** Brand mark + wordmark. The disc mark is inverted in the dark theme (see .aa-brand). */
 export function Brand() {
   return (
-    <Link to="/home" className="aa-brand">
+    <Link to="/" className="aa-brand">
       <img src={atlasLogo} alt="" width={32} height={32} />
       <span>Atlas Autoware</span>
     </Link>
   );
 }
 
+/** Dark is the default; the choice is stored under `aa-theme` and applied before paint in __root. */
 function ThemeToggle() {
   const [isDark, setIsDark] = useState(true);
 
@@ -52,52 +54,65 @@ function ThemeToggle() {
 
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  // Close the menu on route change.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setMenuOpen(false);
+  }, [pathname]);
 
+  // Escape closes the menu and returns focus to the menu button.
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
   return (
-    <header className={`aa-nav ${scrolled || menuOpen ? "aa-nav--scrolled" : ""}`}>
-      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between gap-6">
+    <header className="aa-nav">
+      <a href="#main" className="aa-skip">
+        Skip to content
+      </a>
+      <div className="aa-nav__inner">
         <Brand />
 
-        <nav className="hidden md:flex items-center gap-7" aria-label="Main">
-          {navLinks.map(([label, href]) => (
+        <nav className="aa-nav__links" aria-label="Main">
+          {navLinks.map(({ label, to }) => (
             <Link
-              key={href}
-              to={href}
+              key={to}
+              to={to}
               className="aa-nav__link"
-              activeProps={{ className: "active", "aria-current": "page" }}
+              activeOptions={{ exact: to === "/" }}
+              activeProps={{ "aria-current": "page" }}
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="aa-nav__actions">
           <ThemeToggle />
-          <Link to="/donate" className="hidden md:inline-flex aa-btn aa-btn--primary aa-btn--sm">
+          <Link
+            to="/donate"
+            className="aa-btn aa-btn--primary aa-btn--sm aa-nav__donate"
+            activeProps={{ "aria-current": "page" }}
+          >
             Donate
           </Link>
           <button
+            ref={menuButton}
             type="button"
-            className="md:hidden aa-icon-btn"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            className="aa-icon-btn aa-nav__menu-btn"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
+            aria-controls="aa-menu"
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
@@ -105,30 +120,20 @@ export function Nav() {
         </div>
       </div>
 
-      {menuOpen ? (
-        <nav className="md:hidden border-t border-line px-6 pb-6 pt-3" aria-label="Mobile">
-          <div className="grid gap-1">
-            {navLinks.map(([label, href]) => (
-              <Link
-                key={href}
-                to={href}
-                className="aa-mobile-link"
-                activeProps={{ className: "active", "aria-current": "page" }}
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+      <nav id="aa-menu" className="aa-menu" aria-label="Menu" hidden={!menuOpen}>
+        {navLinks.map(({ label, to }) => (
           <Link
-            to="/donate"
-            className="mt-4 aa-btn aa-btn--primary aa-btn--block"
+            key={to}
+            to={to}
+            className="aa-menu__link"
+            activeOptions={{ exact: to === "/" }}
+            activeProps={{ "aria-current": "page" }}
             onClick={() => setMenuOpen(false)}
           >
-            Donate
+            {label}
           </Link>
-        </nav>
-      ) : null}
+        ))}
+      </nav>
     </header>
   );
 }

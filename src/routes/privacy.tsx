@@ -2,32 +2,28 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { Backdrop, Eyebrow } from "@/components/Section";
+import { PageHead, Row } from "@/components/Ledger";
+import { CONTACT_EMAIL, pageHead } from "@/lib/meta";
 
 const UPDATED = "October 18, 2026";
-const CONTACT = "contact@atlasautoware.org";
+const CONTACT = CONTACT_EMAIL;
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy · Atlas Autoware" },
-      {
-        name: "description",
-        content:
-          "How Atlas Autoware handles information on atlasautoware.org, in donations and email, and on the team's JupyterHub at jupyter.atlasautoware.org.",
-      },
-      { property: "og:title", content: "Privacy Policy · Atlas Autoware" },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/privacy",
+      title: "Privacy Policy · Atlas Autoware",
+      description:
+        "How Atlas Autoware handles information on atlasautoware.org, in donations and email, and on the team's JupyterHub at jupyter.atlasautoware.org.",
+    }),
   component: PrivacyPage,
 });
 
 function Block({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-28">
-      <h2 className="text-2xl font-semibold tracking-tight text-ink">{title}</h2>
-      <div className="mt-4 space-y-4 text-ink-muted leading-relaxed">{children}</div>
+    <section id={id}>
+      <h2>{title}</h2>
+      {children}
     </section>
   );
 }
@@ -42,29 +38,25 @@ function Mail() {
 
 function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-base text-ink">
+    <>
       <Nav />
-      <main>
-        <section className="relative isolate pt-32 md:pt-40 pb-10 overflow-hidden">
-          <Backdrop dim />
-          <div className="mx-auto max-w-3xl px-6">
-            <Eyebrow>Privacy</Eyebrow>
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight aa-title-gradient">
-              Privacy Policy
-            </h1>
-            <p className="mt-6 aa-lead">
+      <main id="main" className="aa-page">
+        <PageHead
+          title="Privacy Policy"
+          meta={[`Last updated ${UPDATED}`]}
+          lead={
+            <>
               Atlas Autoware is a student-run 501(c)(3) nonprofit (EIN 88-3747265) in Fairfax,
               Virginia. This page explains what information we handle on our website, when you
               donate or email us, and on our team's JupyterHub, and what we do with it.
-            </p>
-            <p className="mt-4 text-sm text-ink-subtle">Last updated {UPDATED}</p>
-          </div>
-        </section>
+            </>
+          }
+        />
 
-        <section className="pb-24">
-          <div className="mx-auto max-w-3xl px-6 space-y-12">
+        <Row variant="headless">
+          <div className="aa-prose">
             <Block id="short" title="The short version">
-              <ul className="list-disc pl-6 space-y-2">
+              <ul>
                 <li>We don't sell, rent or trade anyone's information, and we don't run ads.</li>
                 <li>Our website has no sign-up forms and no advertising or tracking cookies.</li>
                 <li>Donations go through PayPal. We never see or store card or bank details.</li>
@@ -110,24 +102,23 @@ function PrivacyPage() {
                 to people an Atlas Autoware administrator has added.
               </p>
               <p>
-                <strong className="text-ink">Sign-in with Google.</strong> When you sign in, Google
-                shares your email address and an account identifier with us (the "openid" and
-                "email" permissions). We don't ask for your name, contacts, files, calendar or any
-                other Google data. We use your email address only to check that you're on the team's
-                list and to name your account and workspace.
+                <strong>Sign-in with Google.</strong> When you sign in, Google shares your email
+                address and an account identifier with us (the "openid" and "email" permissions). We
+                don't ask for your name, contacts, files, calendar or any other Google data. We use
+                your email address only to check that you're on the team's list and to name your
+                account and workspace.
               </p>
               <p>
-                <strong className="text-ink">What the hub keeps.</strong> Your email address, when
-                you signed in and when your workspace last ran, and the files and notebooks you
-                create. These are stored on Atlas Autoware's own servers in Fairfax, Virginia, and
-                are visible to Atlas Autoware administrators who run the hub. Files you put in the
-                shared team folder are visible to the whole team.
+                <strong>What the hub keeps.</strong> Your email address, when you signed in and when
+                your workspace last ran, and the files and notebooks you create. These are stored on
+                Atlas Autoware's own servers in Fairfax, Virginia, and are visible to Atlas Autoware
+                administrators who run the hub. Files you put in the shared team folder are visible
+                to the whole team.
               </p>
               <p>
-                <strong className="text-ink">What we don't do.</strong> We don't sell or share
-                information from Google with anyone, use it for advertising, or use it to train AI
-                models. Atlas Autoware's use and transfer of information received from Google APIs
-                adheres to the{" "}
+                <strong>What we don't do.</strong> We don't sell or share information from Google
+                with anyone, use it for advertising, or use it to train AI models. Atlas Autoware's
+                use and transfer of information received from Google APIs adheres to the{" "}
                 <a
                   href="https://developers.google.com/terms/api-services-user-data-policy"
                   target="_blank"
@@ -139,10 +130,10 @@ function PrivacyPage() {
                 , including the Limited Use requirements.
               </p>
               <p>
-                <strong className="text-ink">Leaving the team.</strong> When someone leaves, an
-                administrator removes their account. To have your account and files deleted sooner,
-                or to get a copy of your files first, write to <Mail />. You can also remove Atlas
-                Autoware's access from your Google account at any time at{" "}
+                <strong>Leaving the team.</strong> When someone leaves, an administrator removes
+                their account. To have your account and files deleted sooner, or to get a copy of
+                your files first, write to <Mail />. You can also remove Atlas Autoware's access
+                from your Google account at any time at{" "}
                 <a
                   href="https://myaccount.google.com/connections"
                   target="_blank"
@@ -180,9 +171,9 @@ function PrivacyPage() {
               </p>
             </Block>
           </div>
-        </section>
+        </Row>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

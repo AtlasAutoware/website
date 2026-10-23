@@ -1,5 +1,4 @@
-import { Cpu, Plane, Wrench } from "lucide-react";
-import { Eyebrow } from "@/components/Section";
+import { DefList } from "@/components/DefList";
 
 /** Season goal. Update `raised` here and both the home and donate pages follow. */
 // Raised from 5,000 to 7,500 on Oct 22, 2026, after Post 28's gift took us past 5,000.
@@ -7,100 +6,87 @@ export const SEASON_GOAL = 7500;
 // 2,979 + American Legion Post 28's 2,060 (check, Oct 22, 2026).
 export const SEASON_RAISED = 5039;
 
+/** The goal before Oct 22, 2026, marked with a tick on the bar. */
+const EARLIER_GOAL = 5000;
+
 /** Shown under the bar while we're still short of the goal. Set to "" to hide it. */
-const PROGRESS_NOTE =
-  "American Legion Quantico–Buck Keyes Post 28 gave $2,060 for car two and took us past our original $5,000 goal, so we set a new one. Thank you, Post 28!";
+const PROGRESS_NOTE = "Post 28's $2,060 check on 22 October took us past our earlier $5,000 goal.";
 
 /** Shown under the bar once the goal is reached. */
 const GOAL_REACHED_NOTE =
-  "We hit the goal. Thank you to everyone on our sponsor wall! Anything more still goes to the three things below.";
+  "We reached the goal. Thank you to everyone on our sponsor wall. Anything more goes to the same three things.";
 
-const ITEM_ICONS = [Plane, Wrench, Cpu];
+type Item = { title: string; desc: string };
 
-const DEFAULT_ITEMS = [
-  { title: "Getting to competitions", desc: "Travel, gas, and entry fees to events like IV 2026." },
+/** What the season's money pays for. */
+const DEFAULT_ITEMS: Item[] = [
   {
-    title: "Building Atlas Two - 2nd Car",
-    desc: "A second car with better sensors and faster compute. Its custom circuit boards alone cost about $2,000.",
+    title: "Car two's boards and parts",
+    desc: "The boards are funded and being ordered: Post 28's $2,060 and about $700 we had on hand cover them. Nothing is paid yet as of 23 October 2026.",
   },
   {
-    title: "Training computer",
-    desc: "A dedicated computer to train our cars' AI models.",
+    title: "A training computer",
+    desc: "A team computer to train our driving models.",
+  },
+  {
+    title: "Travel",
+    desc: "Getting the team and the car to the next competition, a RoboRacer round in Boston.",
   },
 ];
+
+const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
+const pctOf = (n: number, goal: number) => `${Math.min(100, (n / goal) * 100).toFixed(2)}%`;
 
 export function FundraisingProgress({
   raised = SEASON_RAISED,
   goal = SEASON_GOAL,
   items = DEFAULT_ITEMS,
+  compact = false,
 }: {
   raised?: number;
   goal?: number;
-  items?: Array<{ title: string; desc: string }>;
+  items?: Item[];
+  compact?: boolean;
 }) {
-  const pct = Math.min(100, (raised / goal) * 100);
   const reached = raised >= goal;
+  const showTick = EARLIER_GOAL < goal;
+  const note = reached ? GOAL_REACHED_NOTE : PROGRESS_NOTE;
   return (
-    <div className="aa-card p-8 md:p-10">
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-        <div>
-          <Eyebrow>{reached ? "Season goal reached" : "Our goal this season"}</Eyebrow>
-          <h3 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-ink">
-            {reached ? (
-              <>
-                We passed our <span className="aa-gradient-text">${goal.toLocaleString()}</span>{" "}
-                goal
-              </>
-            ) : (
-              <>
-                Help us raise <span className="aa-gradient-text">${goal.toLocaleString()}</span>
-              </>
-            )}
-          </h3>
-        </div>
-        <div className="md:text-right">
-          <div className="aa-display text-4xl md:text-5xl font-bold aa-gradient-text">
-            ${raised.toLocaleString()}
-          </div>
-          <div className="text-sm text-ink-subtle mt-1">
-            {reached
-              ? `raised this season, goal $${goal.toLocaleString()}`
-              : `of $${goal.toLocaleString()} raised so far`}
-          </div>
-        </div>
-      </div>
+    <div>
+      <p className="aa-progress-figure">
+        <strong>{usd(raised)}</strong> raised of {usd(goal)}
+      </p>
       <div
-        className="mt-8 aa-progress"
+        className="mt-2 aa-progress"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={goal}
         aria-valuenow={Math.min(raised, goal)}
-        aria-valuetext={`$${raised.toLocaleString()} raised of a $${goal.toLocaleString()} goal`}
+        aria-valuetext={`${usd(raised)} raised of a ${usd(goal)} goal`}
         aria-label="Season fundraising progress"
       >
-        <div style={{ width: `${pct}%` }} />
+        <div className="aa-progress__fill" style={{ width: pctOf(raised, goal) }} />
+        {showTick ? (
+          <span
+            className="aa-progress__tick"
+            style={{ left: pctOf(EARLIER_GOAL, goal) }}
+            aria-hidden="true"
+          />
+        ) : null}
       </div>
-      {reached || PROGRESS_NOTE ? (
-        <p className="mt-4 text-sm text-ink-muted leading-relaxed">
-          {reached ? GOAL_REACHED_NOTE : PROGRESS_NOTE}
-        </p>
+      {showTick ? (
+        <div className="aa-progress__scale">
+          <span className="aa-progress__tick-label" style={{ left: pctOf(EARLIER_GOAL, goal) }}>
+            Earlier goal {usd(EARLIER_GOAL)}
+          </span>
+        </div>
       ) : null}
-      <div className={`mt-8 grid gap-6 ${items.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
-        {items.map((item, i) => {
-          const Icon = ITEM_ICONS[Math.min(i, ITEM_ICONS.length - 1)];
-          return (
-            <div key={item.title} className="flex gap-4">
-              <span className="aa-icon-tile">
-                <Icon aria-hidden="true" />
-              </span>
-              <div>
-                <div className="font-semibold text-ink">{item.title}</div>
-                <div className="text-sm text-ink-muted mt-1">{item.desc}</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {!compact && note ? <p className="mt-6 aa-prose">{note}</p> : null}
+      {items.length ? (
+        <div className="mt-6">
+          <DefList items={items.map((item) => ({ term: item.title, body: item.desc }))} />
+        </div>
+      ) : null}
     </div>
   );
 }

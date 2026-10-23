@@ -1,68 +1,68 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { Brand } from "@/components/Nav";
+import { CONTACT_EMAIL } from "@/lib/meta";
+
+const JOIN_URL =
+  "https://atlasautoware.notion.site/Atlas-Autoware-Join-the-Team-40052980035081a59f65e760824601e8";
 
 export function Footer() {
   return (
     <footer className="aa-footer">
-      <div className="mx-auto max-w-7xl px-6 py-14 grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
+      <div className="aa-footer__grid">
+        <div className="aa-footer__about">
           <Brand />
-          <p className="mt-4 mb-3 max-w-sm text-sm leading-relaxed text-ink-subtle">
-            A student-led autonomous vehicle team based in Northern Virginia, made up of students
-            from TJHSST. We design, build, and program our self-driving car from the ground up.
+          <p>
+            A student-run 501(c)(3) nonprofit in Fairfax, Virginia, building{" "}
+            <span className="whitespace-nowrap">1/10-scale</span> self-driving race cars.
           </p>
-          <p className="text-xs text-ink-subtle">
-            A 501(c)(3) nonprofit organization · EIN 88-3747265
+          <address>
+            Atlas Autoware
+            <br />
+            3920 Green Look Court
+            <br />
+            Fairfax, VA 22033-2725
+          </address>
+          <p>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="aa-link">
+              {CONTACT_EMAIL}
+            </a>
           </p>
         </div>
 
-        <div>
-          <p className="aa-footer__head">Explore</p>
-          <div className="aa-footer__links">
-            <Link to="/home">Home</Link>
-            <Link to="/the-car">The Car</Link>
-            <Link to="/car-v2">Car v2</Link>
-            <Link to="/donate">Donate</Link>
+        <ul className="aa-footer__links" aria-label="Elsewhere">
+          <li>
+            <a href="https://github.com/AtlasAutoware" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/company/100594298/" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${CONTACT_EMAIL}`}>Email</a>
+          </li>
+          <li>
+            <a href={JOIN_URL} rel="noopener noreferrer">
+              Join the team
+            </a>
+          </li>
+          <li>
             <Link to="/donate" hash="sponsors">
-              Our Sponsors
+              Our sponsors
             </Link>
-          </div>
-        </div>
-
-        <div>
-          <p className="aa-footer__head">Connect</p>
-          <div className="aa-footer__links">
-            <a href="mailto:contact@atlasautoware.org">
-              <Mail aria-hidden="true" /> contact@atlasautoware.org
-            </a>
-            <a
-              href="https://www.instagram.com/atlasautoware/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Instagram aria-hidden="true" /> Instagram
-            </a>
-            <a
-              href="https://www.linkedin.com/company/100594298/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin aria-hidden="true" /> LinkedIn
-            </a>
-            <a href="https://github.com/AtlasAutoware" target="_blank" rel="noopener noreferrer">
-              <Github aria-hidden="true" /> GitHub
-            </a>
-          </div>
-        </div>
+          </li>
+          <li>
+            <Link to="/privacy">Privacy</Link>
+          </li>
+        </ul>
       </div>
-      <div className="border-t border-line">
-        <p className="mx-auto max-w-7xl px-6 py-5 text-xs leading-relaxed text-ink-subtle">
-          © {new Date().getFullYear()} Atlas Autoware ·{" "}
-          <Link to="/privacy" className="aa-link">
-            Privacy Policy
-          </Link>{" "}
-          · Not affiliated with, endorsed by, or sponsored by the Autoware Foundation.
+      <div className="aa-footer__legal">
+        <p>
+          © {new Date().getFullYear()} Atlas Autoware. A 501(c)(3) nonprofit, EIN{" "}
+          <span className="whitespace-nowrap">88-3747265</span>. Not affiliated with, endorsed by,
+          or sponsored by the Autoware Foundation.
         </p>
       </div>
     </footer>

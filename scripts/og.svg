@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!--
+    Open Graph image source (1200×630). Render to public/og.png with `node scripts/og.mjs`.
+    The car is the CarGlyph drawing (240×96 viewBox) scaled 3× to 720px wide, 3px strokes,
+    the lidar in red: sync with CarGlyph.tsx (src/components/drawings/CarGlyph.tsx).
+  -->
+  <rect width="1200" height="630" fill="#030305"/>
+  <g transform="translate(96 40) scale(3)" fill="none" stroke-width="3" stroke-linejoin="round">
+    <g stroke="#f8fafc">
+      <path vector-effect="non-scaling-stroke" d="M24 60 H43 M85 60 H155 M197 60 H216 M24 54 V66 M216 54 V66 M36 44 H204 M100 44 V60 M140 44 V60 M187 40 V44"/>
+      <circle vector-effect="non-scaling-stroke" cx="64" cy="70" r="20"/>
+      <circle vector-effect="non-scaling-stroke" cx="64" cy="70" r="8"/>
+      <circle vector-effect="non-scaling-stroke" cx="176" cy="70" r="20"/>
+      <circle vector-effect="non-scaling-stroke" cx="176" cy="70" r="8"/>
+      <rect vector-effect="non-scaling-stroke" x="180" y="22" width="14" height="18"/>
+    </g>
+    <g stroke="#dc2626">
+      <rect vector-effect="non-scaling-stroke" x="144" y="30" width="30" height="14" rx="2"/>
+      <rect vector-effect="non-scaling-stroke" x="148" y="22" width="22" height="8" rx="1"/>
+    </g>
+  </g>
+  <text x="96" y="470" fill="#f8fafc" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="72" letter-spacing="-0.7">Atlas Autoware</text>
+  <text x="96" y="530" fill="#94a3b8" font-family="Inter, sans-serif" font-weight="400" font-size="28">Student-built self-driving race cars, Fairfax, Virginia</text>
+</svg>

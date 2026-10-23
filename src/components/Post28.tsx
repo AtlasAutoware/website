@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { Eyebrow } from "@/components/Section";
+import { Row } from "@/components/Ledger";
 
 /**
  * American Legion Quantico-Buck Keyes Post 28 (Triangle, VA) gave $2,060 toward car two in
@@ -30,47 +29,46 @@ export function Post28Badge({ size = "md" }: { size?: "md" | "lg" }) {
       <span className="aa-legion-badge__top">The American Legion</span>
       <span className="aa-legion-badge__num">Post 28</span>
       <span className="aa-legion-badge__rule" />
-      <span className="aa-legion-badge__sub">Quantico&ndash;Buck Keyes &middot; Triangle, VA</span>
+      <span className="aa-legion-badge__sub">
+        <span className="whitespace-nowrap">Quantico&ndash;Buck Keyes</span> &middot;{" "}
+        <span className="whitespace-nowrap">Triangle, VA</span>
+      </span>
     </div>
   );
 }
 
-/** Home-page thank-you card. */
+/** Home-page thank-you row. */
 export function Post28Thanks() {
   return (
-    <section className="py-16 md:py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="aa-card aa-partner p-5 md:p-6 grid gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center">
-          <div className="aa-sponsor__logo aa-partner__logo">
-            <Post28Badge size="lg" />
-          </div>
-          <div className="md:pr-4">
-            <Eyebrow>Thank you &middot; October 2026</Eyebrow>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-ink">
-              American Legion Post 28 is backing car two.
-            </h2>
-            <p className="mt-4 text-ink-muted leading-relaxed">
-              {POST28.fullName} in {POST28.place}, gave ${POST28.amount.toLocaleString()} toward our
-              second car: the full amount we estimated it would cost to build. It came in the year
-              the post marks its 100th anniversary, and it took us past our original $5,000 goal for
-              the season. Thank you to Commander Michael Hoff and every member of Post 28.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link to="/car-v2" hash="on-the-car" className="aa-btn aa-btn--primary">
-                See Car Two <ArrowRight aria-hidden="true" />
-              </Link>
-              <a
-                href={POST28.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aa-btn aa-btn--outline"
-              >
-                Visit Post 28 <ArrowUpRight aria-hidden="true" />
-              </a>
-            </div>
+    <Row title="Car two has a sponsor" meta={["22 Oct 2026"]}>
+      <div className="aa-partner grid gap-6 items-center md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <div className="aa-sponsor__logo aa-partner__logo">
+          <Post28Badge size="lg" />
+        </div>
+        <div>
+          <p className="aa-partner__name">{POST28.fullName}</p>
+          <p className="aa-meta">{POST28.place}</p>
+          <p className="mt-4 aa-prose">
+            The post gave ${POST28.amount.toLocaleString("en-US")} for car two, the full build
+            estimate we sent it on 29 September. It pays for car two&rsquo;s two circuit boards.
+            2026 is the post&rsquo;s 100th-anniversary year, and its name goes on car two. Thank you
+            to Commander Michael Hoff and the members of Post 28.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/car-v2" hash="names" className="aa-btn aa-btn--primary">
+              See car two
+            </Link>
+            <a
+              href={POST28.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aa-btn aa-btn--secondary"
+            >
+              Visit Post 28
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </Row>
   );
 }

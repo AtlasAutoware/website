@@ -10,7 +10,6 @@
     /* Bundler mode */
     "moduleResolution": "Bundler",
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
     "noEmit": true,

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as CarV2RouteImport } from './routes/car-v2'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as HomeRouteImport } from './routes/home'
@@ -19,6 +20,11 @@ import { Route as TheCarRouteImport } from './routes/the-car'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CarV2Route = CarV2RouteImport.update({
@@ -49,6 +55,7 @@ const TheCarRoute = TheCarRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
@@ -74,15 +83,24 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
+  fullPaths:
+    '/' | '/about' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
+  to: '/' | '/about' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
   id:
-    '__root__' | '/' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/car-v2'
+    | '/donate'
+    | '/home'
+    | '/privacy'
+    | '/the-car'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CarV2Route: typeof CarV2Route
   DonateRoute: typeof DonateRoute
   HomeRoute: typeof HomeRoute
@@ -97,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/car-v2': {
@@ -139,6 +164,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CarV2Route: CarV2Route,
   DonateRoute: DonateRoute,
   HomeRoute: HomeRoute,

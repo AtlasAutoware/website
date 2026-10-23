@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { SectionHeader } from "@/components/Section";
+import { Row } from "@/components/Ledger";
 import { POST28, Post28Badge } from "@/components/Post28";
 
 import gmuLogo from "@/assets/sponsors/gmu.png";
@@ -69,24 +68,24 @@ const HARDWARE = "Hardware";
  * The sponsor wall. Add a sponsor here once (logo file in src/assets/sponsors/) and it
  * shows up on both the home page and the donate page.
  */
-export const sponsorGroups: SponsorGroup[] = [
+const sponsorGroups: SponsorGroup[] = [
   {
     // October 2026: $2,060 toward car two, the build estimate we quoted the post.
     id: "partner",
-    label: "Car Two Partner",
+    label: "Car two partner",
     sponsors: [
       {
         name: POST28.fullName,
         badge: <Post28Badge size="lg" />,
         place: POST28.place,
         href: POST28.href,
-        blurb: `In its centennial year, Post 28 gave $${POST28.amount.toLocaleString()} toward car two: the full amount we estimated the car would cost to build, and our largest gift this season. The post's name goes on the car.`,
+        blurb: `In its 100th-anniversary year, Post 28 gave $${POST28.amount.toLocaleString("en-US")}, the full build estimate we sent the post for car two. It pays for car two's two circuit boards, and the post's name goes on the car.`,
       },
     ],
   },
   {
     id: "lab",
-    label: "Lab Sponsor",
+    label: "Lab sponsor",
     sponsors: [{ name: "George Mason University", logo: gmuLogo, href: "https://www.gmu.edu/" }],
   },
   {
@@ -137,8 +136,7 @@ export const sponsorGroups: SponsorGroup[] = [
         darkPanel: true,
       },
       {
-        // The post's namesake, John Lyon, served in the 29th Infantry Division in WWI; the
-        // post asked for the division's patch on car 2, so the patch stands in for a logo.
+        // The post asked for the 29th Infantry Division patch on car 2, so the patch stands in for a logo.
         name: "John Lyon VFW Post 3150",
         logo: infantry29Patch,
         href: "https://vfw3150.org/",
@@ -226,21 +224,26 @@ export const sponsorGroups: SponsorGroup[] = [
   },
 ];
 
+function Logo({ sponsor, className = "" }: { sponsor: Sponsor; className?: string }) {
+  return (
+    <div
+      className={`aa-sponsor__logo ${sponsor.darkPanel ? "aa-sponsor__logo--dark" : ""} ${className}`}
+    >
+      {/* The name is printed next to the logo inside the same link, so the image is decorative. */}
+      {sponsor.logo ? <img src={sponsor.logo} alt="" loading="lazy" /> : sponsor.badge}
+    </div>
+  );
+}
+
 function SponsorTile({ sponsor, large = false }: { sponsor: Sponsor; large?: boolean }) {
   return (
     <a
       href={sponsor.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`aa-card aa-card--hover aa-card--lift aa-sponsor ${large ? "aa-sponsor--lg" : ""}`}
+      className={`aa-sponsor ${large ? "aa-sponsor--lg" : ""}`}
     >
-      <div className={`aa-sponsor__logo ${sponsor.darkPanel ? "aa-sponsor__logo--dark" : ""}`}>
-        {sponsor.logo ? (
-          <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-        ) : (
-          sponsor.badge
-        )}
-      </div>
+      <Logo sponsor={sponsor} />
       <div className="aa-sponsor__meta">
         <p className="aa-sponsor__name">{sponsor.name}</p>
         {sponsor.tag ? <span className="aa-sponsor__tag">{sponsor.tag}</span> : null}
@@ -249,43 +252,38 @@ function SponsorTile({ sponsor, large = false }: { sponsor: Sponsor; large?: boo
   );
 }
 
-/** Full-width card for the featured partner, with a line or two of thanks. */
+/** Wide card for the featured partner, with a line or two of thanks. */
 function PartnerFeature({ sponsor }: { sponsor: Sponsor }) {
   return (
     <a
       href={sponsor.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="aa-card aa-card--lift aa-partner p-4 md:p-5 grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center"
+      className="aa-partner grid gap-6 items-center md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
     >
-      <div className="aa-sponsor__logo aa-partner__logo">
-        {sponsor.logo ? (
-          <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-        ) : (
-          sponsor.badge
-        )}
-      </div>
-      <div className="px-2 pb-2 md:p-4">
-        <p className="aa-display text-2xl md:text-3xl font-bold tracking-tight text-ink">
-          {sponsor.name}
-        </p>
-        {sponsor.place ? <p className="mt-1 text-sm text-ink-subtle">{sponsor.place}</p> : null}
-        {sponsor.blurb ? (
-          <p className="mt-4 text-ink-muted leading-relaxed">{sponsor.blurb}</p>
-        ) : null}
+      <Logo sponsor={sponsor} className="aa-partner__logo" />
+      <div>
+        <p className="aa-partner__name">{sponsor.name}</p>
+        {sponsor.place ? <p className="aa-meta">{sponsor.place}</p> : null}
+        {sponsor.blurb ? <p className="mt-6 aa-prose">{sponsor.blurb}</p> : null}
       </div>
     </a>
   );
 }
 
-function GroupLabel({ group }: { group: SponsorGroup }) {
+function Group({ group, children }: { group: SponsorGroup; children: ReactNode }) {
   return (
-    <h3 className={`aa-sponsor-group__label aa-sponsor-group--${group.id} mb-4`}>
-      <span className="aa-sponsor-group__dot" aria-hidden="true" />
-      {group.label}
-    </h3>
+    <div className="grid gap-4 content-start">
+      <h3 className={`aa-sponsor-group__label aa-sponsor-group--${group.id}`}>
+        <span className="aa-sponsor-group__dot" aria-hidden="true" />
+        {group.label}
+      </h3>
+      {children}
+    </div>
   );
 }
+
+const SPONSOR_COUNT = sponsorGroups.reduce((n, g) => n + g.sponsors.length, 0);
 
 export function SponsorWall({ showCta = true }: { showCta?: boolean }) {
   const byId = Object.fromEntries(sponsorGroups.map((g) => [g.id, g])) as Record<
@@ -294,62 +292,60 @@ export function SponsorWall({ showCta = true }: { showCta?: boolean }) {
   >;
 
   return (
-    <section id="sponsors" className="aa-band py-24 scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader
-          center
-          eyebrow="Our sponsors"
-          title="The Sponsors Behind the Build"
-          lead="Every part, every trip, every race is made possible by the people and companies below."
-        />
-        {showCta ? (
-          <div className="mt-6 text-center">
-            <Link to="/donate" hash="season" className="aa-btn aa-btn--outline">
-              Become a Sponsor <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        ) : null}
-
-        {byId.partner.sponsors.length ? (
-          <div className="mt-14">
-            <GroupLabel group={byId.partner} />
-            <div className="grid gap-5">
-              {byId.partner.sponsors.map((s) => (
-                <PartnerFeature key={s.name} sponsor={s} />
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
-          {[byId.lab, byId.gold].map((group) => (
-            <div key={group.id}>
-              <GroupLabel group={group} />
-              {group.sponsors.map((s) => (
-                <SponsorTile key={s.name} sponsor={s} large />
-              ))}
-            </div>
-          ))}
+    <Row
+      id="sponsors"
+      topic
+      variant="wide"
+      title="Our sponsors"
+      meta={[`${SPONSOR_COUNT} on the wall`]}
+    >
+      {showCta ? (
+        <div>
+          <Link to="/donate" hash="sponsoring" className="aa-btn aa-btn--secondary">
+            Become a sponsor
+          </Link>
         </div>
+      ) : null}
 
-        <div className="mt-12">
-          <GroupLabel group={byId.silver} />
-          <div className="grid gap-5 sm:grid-cols-2">
+      {byId.partner.sponsors.length ? (
+        <div className={showCta ? "mt-12" : undefined}>
+          <Group group={byId.partner}>
+            {byId.partner.sponsors.map((s) => (
+              <PartnerFeature key={s.name} sponsor={s} />
+            ))}
+          </Group>
+        </div>
+      ) : null}
+
+      <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-6">
+        {[byId.lab, byId.gold].map((group) => (
+          <Group key={group.id} group={group}>
+            {group.sponsors.map((s) => (
+              <SponsorTile key={s.name} sponsor={s} large />
+            ))}
+          </Group>
+        ))}
+      </div>
+
+      <div className="mt-12">
+        <Group group={byId.silver}>
+          <div className="grid gap-4 sm:grid-cols-2 md:gap-6">
             {byId.silver.sponsors.map((s) => (
               <SponsorTile key={s.name} sponsor={s} large />
             ))}
           </div>
-        </div>
+        </Group>
+      </div>
 
-        <div className="mt-12">
-          <GroupLabel group={byId.bronze} />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12">
+        <Group group={byId.bronze}>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
             {byId.bronze.sponsors.map((s) => (
               <SponsorTile key={s.name} sponsor={s} />
             ))}
           </div>
-        </div>
+        </Group>
       </div>
-    </section>
+    </Row>
   );
 }
