@@ -30,7 +30,7 @@ const DEFAULT_ITEMS: Item[] = [
   },
   {
     title: "Travel",
-    desc: "Getting the team and the car to the next competition, a RoboRacer round in Boston.",
+    desc: "Getting the team and the car to our next competition, in spring 2027.",
   },
 ];
 

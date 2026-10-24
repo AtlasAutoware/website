@@ -221,7 +221,7 @@ function TheCarPage() {
               },
             ]}
           />
-          <p className="aa-prose mt-6">Our next race is a RoboRacer round in Boston.</p>
+          <p className="aa-prose mt-6">Our next competition is in spring 2027.</p>
         </Row>
       </main>
       <Footer />

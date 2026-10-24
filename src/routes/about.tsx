@@ -262,7 +262,7 @@ function AboutPage() {
           meta={[
             "~20 of us on the team",
             "2 competitions entered so far",
-            "Next: a RoboRacer round in Boston",
+            "Next competition: spring 2027",
           ]}
         >
           <Notes items={HISTORY} />
