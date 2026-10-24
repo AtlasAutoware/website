@@ -83,30 +83,6 @@ function Hero() {
   );
 }
 
-/* ---------- Founder's note ---------- */
-
-function FounderNote() {
-  return (
-    <Row variant="headless" title="From the founder">
-      <div className="aa-prose">
-        {/* The IV 2026 clause is verified wording: keep it exact. */}
-        <p>
-          In June, at IEEE IV 2026 in Detroit, a hardware failure stopped the car before the finish,
-          our first DNF. Over July and August we rebuilt car one around a VESC motor controller and
-          a sensored motor. On 27 September we finished designing car two, and on 22 October
-          American Legion Post 28 gave $2,060 for its two circuit boards. Next is a RoboRacer round
-          in Boston.
-        </p>
-      </div>
-      <p className="aa-meta mt-6">
-        Eshan Iyer, Founder
-        <br />
-        <time dateTime="2026-10-23">23 Oct 2026</time>
-      </p>
-    </Row>
-  );
-}
-
 /* ---------- Dated log, newest first ---------- */
 
 const LOG = [
@@ -170,8 +146,6 @@ function HomePage() {
       <Nav />
       <main id="main" className="aa-page">
         <Hero />
-
-        <FounderNote />
 
         <Post28Thanks />
 

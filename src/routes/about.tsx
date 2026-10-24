@@ -56,7 +56,7 @@ const PROGRAM = [
   },
   {
     term: "TJ Self-Driving Cars club",
-    body: "Founded by Eshan Iyer, who is also its president.",
+    body: "The club at TJHSST through which members work on the cars. Eshan Iyer is its president.",
   },
   {
     term: "George Mason University",
@@ -83,7 +83,7 @@ const HISTORY = [
     date: "2022-08-05",
     label: "5 Aug 2022",
     title: "Incorporated in Virginia",
-    body: "As a nonstock corporation. The IRS exemption is effective the same day.",
+    body: "Founded by Manav Gagvani and Adi Desai as a nonstock corporation. The IRS exemption is effective the same day.",
   },
   {
     date: "2022-08-26",
@@ -204,7 +204,7 @@ function AboutPage() {
               in Fairfax, Virginia.
             </>
           }
-          lead="It was incorporated in Virginia in August 2022. Its founder and president is Eshan Iyer, a TJHSST senior. At Thomas Jefferson High School for Science and Technology our work runs through the Computer Systems Research Lab and the TJ Self-Driving Cars club, which Eshan also founded. No one is paid."
+          lead="It was founded by Manav Gagvani and Adi Desai and incorporated in Virginia in August 2022. Its president is Eshan Iyer, a TJHSST senior. At Thomas Jefferson High School for Science and Technology our work runs through the Computer Systems Research Lab and the TJ Self-Driving Cars club. No one is paid."
         />
 
         {/* Inverted ledger: governance facts fill the side column beside the org drawing. */}
