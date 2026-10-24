@@ -36,7 +36,10 @@ export const Route = createFileRoute("/donate")({
   component: DonatePage,
 });
 
-const PAYPAL = "https://www.paypal.com/donate?hosted_button_id=88VLJ6TS6554Q&amount=";
+// PayPal ignores "amount" on hosted-button links (hosted_button_id=88VLJ6TS6554Q opened at $0), so
+// the links address the account directly by merchant id, which does prefill the amount.
+const PAYPAL =
+  "https://www.paypal.com/donate?business=HQFCMZTVVTKWG&currency_code=USD&item_name=Atlas%20Autoware&amount=";
 const PPGF = "https://www.paypal.com/fundraiser/charity/4692391";
 const CONTACT = CONTACT_EMAIL;
 
