@@ -12,7 +12,6 @@ See [atlasautoware.org/donate](https://atlasautoware.org/donate) or contact us a
 
 **Built by Atlas Autoware students**
 
-
 </div>
 
 ## Working on the site
@@ -47,3 +46,14 @@ CHROMIUM_PATH=/path/to/chrome node scripts/og.mjs   # or use a Chromium you alre
 
 The script loads Inter and Space Grotesk from Google Fonts; if they cannot be reached it prints a
 warning and falls back to installed system fonts. Commit the resulting `public/og.png`.
+
+## The "Spent so far" figures on /donate
+
+They are read live from the Spending dashboard in Notion (Operations > Spending dashboard), by the
+server function in `src/routes/donate.tsx` through `src/lib/finance.ts`: money out summed by
+Category from the Transactions data source, and any Balances row with "Show on website" ticked.
+Results are cached in the Worker for 15 minutes, and only category totals and the balance leave
+Notion. The Worker reads the secret `NOTION_TOKEN` (an internal Notion integration with read
+access to that page; set it under the Worker's Settings > Variables and Secrets). Without the
+secret, or when Notion cannot be reached, the page shows `SNAPSHOT` from `src/lib/finance.ts`;
+refresh that snapshot by hand if the live feed is off for long.

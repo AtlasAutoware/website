@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { useState, type MouseEvent } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -8,6 +9,20 @@ import { DefList } from "@/components/DefList";
 import { SponsorWall } from "@/components/SponsorWall";
 import { FundraisingProgress, SEASON_GOAL, SEASON_RAISED } from "@/components/Fundraising";
 import { CONTACT_EMAIL, pageHead } from "@/lib/meta";
+import {
+  dateRange,
+  loadFinance,
+  longDate,
+  shortDate,
+  usd2,
+  type FinanceSummary,
+} from "@/lib/finance";
+import { runtimeSecret } from "@/lib/runtime-env";
+
+/** Reads the Spending dashboard in Notion on the server; never throws (falls back to the snapshot). */
+const getFinance = createServerFn({ method: "GET" }).handler(async () =>
+  loadFinance(runtimeSecret("NOTION_TOKEN")),
+);
 
 export const Route = createFileRoute("/donate")({
   head: () =>
@@ -16,6 +31,8 @@ export const Route = createFileRoute("/donate")({
       title: "Donate to Atlas Autoware",
       description: "PayPal, donor-advised fund, employer match or check. EIN 88-3747265.",
     }),
+  loader: () => getFinance(),
+  staleTime: 5 * 60 * 1000,
   component: DonatePage,
 });
 
@@ -146,7 +163,37 @@ function GiveForm() {
   );
 }
 
+/* ---------- Spent so far: live from the Spending dashboard in Notion ---------- */
+
+function SpentSoFar({ finance }: { finance: FinanceSummary }) {
+  const bank = finance.balances[0];
+  const meta = [dateRange(finance.since, finance.through)];
+  if (bank) meta.push(`${usd2(bank.balance)} in the bank on ${shortDate(bank.asOf)}`);
+  meta.push(finance.live ? "From our books, read live" : "From our books");
+  return (
+    <Row title="Spent so far" meta={meta}>
+      <p className="aa-prose">
+        Spent {longDate(finance.since)} to {longDate(finance.through)}, {usd2(finance.total)} in
+        total:
+      </p>
+      <div className="mt-6">
+        <SpecTable
+          columns={["Item", "Amount"]}
+          numericCols={[1]}
+          rows={finance.categories.map((c) => [c.name, usd2(c.amount)])}
+          caption={
+            bank
+              ? `Cash on hand: ${usd2(bank.balance)} in the bank on ${longDate(bank.asOf)}. Gifts are counted before PayPal's fee; the fee is the processing line above.`
+              : "Gifts are counted before PayPal's fee; the fee is the processing line above."
+          }
+        />
+      </div>
+    </Row>
+  );
+}
+
 function DonatePage() {
+  const finance = Route.useLoaderData();
   const reached = SEASON_RAISED >= SEASON_GOAL;
   const title = reached
     ? `We passed our ${usd(SEASON_GOAL)} goal for this season.`
@@ -178,24 +225,7 @@ function DonatePage() {
           </p>
         </Row>
 
-        {/* The total covers more than the three items listed, so they are shown as "including". */}
-        <Row title="Spent so far" meta={["17 Jul – 15 Oct 2026"]}>
-          <p className="aa-prose">
-            Spent 17 July to 15 October 2026, $1,957.75 in total, including:
-          </p>
-          <div className="mt-6">
-            <SpecTable
-              columns={["Item", "Amount"]}
-              numericCols={[1]}
-              rows={[
-                ["Parts for the training computer", "$1,095.05"],
-                ["Car parts and repairs", "$644.34"],
-                ["Program fee", "$50.00"],
-              ]}
-              caption="On 16 Oct 2026 we also bought $251.16 of RAM for the training computer."
-            />
-          </div>
-        </Row>
+        <SpentSoFar finance={finance} />
 
         <Row
           title="Other ways to give"
