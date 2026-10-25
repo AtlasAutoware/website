@@ -56,6 +56,9 @@ export function Footer() {
           <li>
             <Link to="/privacy">Privacy</Link>
           </li>
+          <li>
+            <Link to="/nondiscrimination">Non-discrimination</Link>
+          </li>
         </ul>
       </div>
       <div className="aa-footer__legal">

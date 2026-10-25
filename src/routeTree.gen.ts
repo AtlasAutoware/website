@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as CarV2RouteImport } from './routes/car-v2'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as NondiscriminationRouteImport } from './routes/nondiscrimination'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TheCarRouteImport } from './routes/the-car'
 
@@ -42,6 +43,11 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NondiscriminationRoute = NondiscriminationRouteImport.update({
+  id: '/nondiscrimination',
+  path: '/nondiscrimination',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
+  '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
   '/the-car': typeof TheCarRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
+  '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
   '/the-car': typeof TheCarRoute
 }
@@ -78,15 +86,31 @@ export interface FileRoutesById {
   '/car-v2': typeof CarV2Route
   '/donate': typeof DonateRoute
   '/home': typeof HomeRoute
+  '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
   '/the-car': typeof TheCarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
+    | '/'
+    | '/about'
+    | '/car-v2'
+    | '/donate'
+    | '/home'
+    | '/nondiscrimination'
+    | '/privacy'
+    | '/the-car'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/car-v2' | '/donate' | '/home' | '/privacy' | '/the-car'
+  to:
+    | '/'
+    | '/about'
+    | '/car-v2'
+    | '/donate'
+    | '/home'
+    | '/nondiscrimination'
+    | '/privacy'
+    | '/the-car'
   id:
     | '__root__'
     | '/'
@@ -94,6 +118,7 @@ export interface FileRouteTypes {
     | '/car-v2'
     | '/donate'
     | '/home'
+    | '/nondiscrimination'
     | '/privacy'
     | '/the-car'
   fileRoutesById: FileRoutesById
@@ -104,6 +129,7 @@ export interface RootRouteChildren {
   CarV2Route: typeof CarV2Route
   DonateRoute: typeof DonateRoute
   HomeRoute: typeof HomeRoute
+  NondiscriminationRoute: typeof NondiscriminationRoute
   PrivacyRoute: typeof PrivacyRoute
   TheCarRoute: typeof TheCarRoute
 }
@@ -145,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nondiscrimination': {
+      id: '/nondiscrimination'
+      path: '/nondiscrimination'
+      fullPath: '/nondiscrimination'
+      preLoaderRoute: typeof NondiscriminationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -168,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarV2Route: CarV2Route,
   DonateRoute: DonateRoute,
   HomeRoute: HomeRoute,
+  NondiscriminationRoute: NondiscriminationRoute,
   PrivacyRoute: PrivacyRoute,
   TheCarRoute: TheCarRoute,
 }

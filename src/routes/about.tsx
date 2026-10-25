@@ -226,7 +226,11 @@ function AboutPage() {
           <div className="aa-prose mt-6">
             <p>
               A three-member student board governs the nonprofit. The TJ Self-Driving Cars club has
-              a faculty sponsor at TJHSST.
+              a faculty sponsor at TJHSST. The board has adopted a{" "}
+              <Link to="/nondiscrimination" className="aa-link">
+                non-discrimination policy
+              </Link>{" "}
+              that applies to every member and program.
             </p>
             <p>
               Atlas Autoware is not affiliated with, endorsed by, or sponsored by the Autoware
