@@ -15,6 +15,7 @@ import bachtorockLogo from "@/assets/bachtorock.png";
 import allgoLogo from "@/assets/AllgoRhythm_img.png";
 import meanWellLogo from "@/assets/sponsors/mean-well.png";
 import lucidLogo from "@/assets/sponsors/lucid.svg";
+import edmundOpticsLogo from "@/assets/sponsors/edmund-optics.svg";
 import andersonPowerLogo from "@/assets/sponsors/anderson-power-white.png";
 import rc4wdLogo from "@/assets/sponsors/rc4wd.png";
 import progressiveRcLogo from "@/assets/progressive-rc.png";
@@ -173,6 +174,14 @@ const sponsorGroups: SponsorGroup[] = [
         logo: lucidLogo,
         href: "https://thinklucid.com/",
         tag: HARDWARE,
+      },
+      {
+        // Sponsored the TECHSPEC #91157 lens for the LUCID camera (MOU signed Oct 2026).
+        name: "Edmund Optics",
+        logo: edmundOpticsLogo,
+        href: "https://www.edmundoptics.com/",
+        tag: HARDWARE,
+        darkPanel: true,
       },
       {
         name: "MEAN WELL",
