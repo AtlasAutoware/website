@@ -13,7 +13,7 @@ import { CONTACT_EMAIL, pageHead } from "@/lib/meta";
 import carLab from "@/assets/atlas-car-lab.webp";
 
 const JOIN_URL =
-  "https://atlasautoware.notion.site/Atlas-Autoware-Join-the-Team-40052980035081a59f65e760824601e8";
+  "https://automind.atlasautoware.org/";
 
 export const Route = createFileRoute("/")({
   head: () =>
