@@ -40,6 +40,7 @@ import dinoLiteLogo from "@/assets/sponsors/dino-lite.png";
 import triadEngineeringLogo from "@/assets/sponsors/triad-engineering.svg";
 import cellsiteSolutionsLogo from "@/assets/sponsors/cellsite-solutions.png";
 import yatesDesygnLogo from "@/assets/sponsors/yates-desygn.png";
+import vfwLogo from "@/assets/sponsors/vfw.png";
 
 type Sponsor = {
   name: string;
@@ -143,6 +144,15 @@ const sponsorGroups: SponsorGroup[] = [
         name: "John Lyon VFW Post 3150",
         logo: infantry29Patch,
         href: "https://vfw3150.org/",
+      },
+      {
+        // The Blue and Gray Post, Fairfax Station: $250 by PayPal on 29 October 2026. The post's
+        // own site (vfw8469.com) no longer loads, so the tile shows the VFW logo and links to
+        // the VFW's post locator.
+        name: "VFW Post 8469",
+        logo: vfwLogo,
+        href: "https://www.vfw.org/find-a-post",
+        darkPanel: true,
       },
       {
         name: "Somireddy Law Group",
