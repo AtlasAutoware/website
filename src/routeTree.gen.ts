@@ -16,6 +16,7 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as NondiscriminationRouteImport } from './routes/nondiscrimination'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ReservesRouteImport } from './routes/reserves'
 import { Route as TheCarRouteImport } from './routes/the-car'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReservesRoute = ReservesRouteImport.update({
+  id: '/reserves',
+  path: '/reserves',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TheCarRoute = TheCarRouteImport.update({
   id: '/the-car',
   path: '/the-car',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
+  '/reserves': typeof ReservesRoute
   '/the-car': typeof TheCarRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
+  '/reserves': typeof ReservesRoute
   '/the-car': typeof TheCarRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/nondiscrimination': typeof NondiscriminationRoute
   '/privacy': typeof PrivacyRoute
+  '/reserves': typeof ReservesRoute
   '/the-car': typeof TheCarRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/nondiscrimination'
     | '/privacy'
+    | '/reserves'
     | '/the-car'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/nondiscrimination'
     | '/privacy'
+    | '/reserves'
     | '/the-car'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/nondiscrimination'
     | '/privacy'
+    | '/reserves'
     | '/the-car'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   NondiscriminationRoute: typeof NondiscriminationRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReservesRoute: typeof ReservesRoute
   TheCarRoute: typeof TheCarRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reserves': {
+      id: '/reserves'
+      path: '/reserves'
+      fullPath: '/reserves'
+      preLoaderRoute: typeof ReservesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/the-car': {
       id: '/the-car'
       path: '/the-car'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   NondiscriminationRoute: NondiscriminationRoute,
   PrivacyRoute: PrivacyRoute,
+  ReservesRoute: ReservesRoute,
   TheCarRoute: TheCarRoute,
 }
 export const routeTree = rootRouteImport
