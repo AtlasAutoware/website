@@ -41,6 +41,7 @@ import triadEngineeringLogo from "@/assets/sponsors/triad-engineering.svg";
 import cellsiteSolutionsLogo from "@/assets/sponsors/cellsite-solutions.png";
 import yatesDesygnLogo from "@/assets/sponsors/yates-desygn.png";
 import vfwLogo from "@/assets/sponsors/vfw.png";
+import vanillaCyberLogo from "@/assets/sponsors/vanilla-cyber.png";
 
 type Sponsor = {
   name: string;
@@ -241,6 +242,14 @@ const sponsorGroups: SponsorGroup[] = [
         tag: HARDWARE,
         darkPanel: true,
       },
+      {
+        // Falls Church IT company: donated two desktops (RTX 2070, i7-9700K) plus SSDs for the
+        // training computer, October 2026. Logo from Renen Wasserman's email of 30 October.
+        name: "Vanilla Cyber",
+        logo: vanillaCyberLogo,
+        href: "https://www.vanillacyber.com/",
+        tag: HARDWARE,
+      },
     ],
   },
 ];
@@ -304,7 +313,8 @@ function Group({ group, children }: { group: SponsorGroup; children: ReactNode }
   );
 }
 
-const SPONSOR_COUNT = sponsorGroups.reduce((n, g) => n + g.sponsors.length, 0);
+/** Number of sponsors on the wall, also shown on the org drawing on /about. */
+export const SPONSOR_COUNT = sponsorGroups.reduce((n, g) => n + g.sponsors.length, 0);
 
 export function SponsorWall({ showCta = true }: { showCta?: boolean }) {
   const byId = Object.fromEntries(sponsorGroups.map((g) => [g.id, g])) as Record<

@@ -1,3 +1,4 @@
+import { SPONSOR_COUNT } from "@/components/SponsorWall";
 import { Box, Drawing, Note, TitleBlock, Wire } from "./parts";
 
 /*
@@ -6,7 +7,7 @@ import { Box, Drawing, Note, TitleBlock, Wire } from "./parts";
  *   which has a faculty sponsor (not named).
  * - Manav Gagvani and Adi Desai founded Atlas Autoware, a 501(c)(3). Eshan Iyer is its president.
  * - George Mason University is the lab sponsor; track work is planned at a GMU lab.
- * - Sponsors and donors: 36 entries on the sponsor wall (sponsorGroups in SponsorWall.tsx); cash and donated hardware.
+ * - Sponsors and donors: the sponsor wall count (SPONSOR_COUNT in SponsorWall.tsx); cash and donated hardware.
  * - Car two's circuit boards are funded by Post 28's gift and funds on hand.
  * Red: the Atlas node.
  */
@@ -62,7 +63,7 @@ export function OrgDiagram({ className }: { className?: string }) {
               y={224}
               w={144}
               title={["Sponsors and", "donors"]}
-              sub={["36 on the wall"]}
+              sub={[`${SPONSOR_COUNT} on the wall`]}
             />
 
             {/* The founders founded Atlas */}
@@ -165,7 +166,7 @@ export function OrgDiagram({ className }: { className?: string }) {
               y={392}
               w={164}
               title={["Sponsors and", "donors"]}
-              sub={["36 on the wall"]}
+              sub={[`${SPONSOR_COUNT} on the wall`]}
             />
             <Box x={96} y={516} w={168} title={["Car two's", "circuit boards"]} />
 
