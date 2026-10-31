@@ -103,6 +103,14 @@ const sponsorGroups: SponsorGroup[] = [
     sponsors: [
       { name: "Atlas General Contractors", logo: atlasGcLogo, href: "https://atlasgc.org/" },
       { name: "Segments.ai", logo: segmentsAiLogo, href: "https://segments.ai/" },
+      {
+        // Falls Church IT company: donated two desktops (RTX 2070, i7-9700K) plus SSDs for the
+        // training computer, October 2026. Logo from Renen Wasserman's email of 30 October.
+        name: "Vanilla Cyber",
+        logo: vanillaCyberLogo,
+        href: "https://www.vanillacyber.com/",
+        tag: HARDWARE,
+      },
     ],
   },
   {
@@ -241,14 +249,6 @@ const sponsorGroups: SponsorGroup[] = [
         href: "https://www.dinolite.us/",
         tag: HARDWARE,
         darkPanel: true,
-      },
-      {
-        // Falls Church IT company: donated two desktops (RTX 2070, i7-9700K) plus SSDs for the
-        // training computer, October 2026. Logo from Renen Wasserman's email of 30 October.
-        name: "Vanilla Cyber",
-        logo: vanillaCyberLogo,
-        href: "https://www.vanillacyber.com/",
-        tag: HARDWARE,
       },
     ],
   },
