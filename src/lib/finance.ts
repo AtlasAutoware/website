@@ -45,21 +45,21 @@ const PUBLIC_NAMES: Record<string, string> = {
 /** Categories that never show: money in, and orders that were cancelled and refunded. */
 const HIDDEN = new Set(["Donation", "Cancelled order"]);
 
-/** Figures read from Notion on 24 Oct 2026; shown when the live feed is unavailable. */
+/** Figures read from Notion on 3 Nov 2026; shown when the live feed is unavailable. */
 export const SNAPSHOT: FinanceSummary = {
   since: SEASON_START,
-  through: "2026-10-23",
-  total: 2442.96,
+  through: "2026-11-02",
+  total: 4132.99,
   categories: [
-    { name: "Parts for the training computer", amount: 1346.21 },
+    { name: "Parts for the training computer", amount: 3030.77 },
     { name: "Car parts and repairs", amount: 644.34 },
     { name: "Other", amount: 275.5 },
     { name: "Software and services", amount: 67.06 },
-    { name: "Payment processing fees", amount: 59.85 },
+    { name: "Payment processing fees", amount: 65.32 },
     { name: "Program fee", amount: 50 },
   ],
-  balances: [{ account: "Bank checking (U.S. Bank)", balance: 2812.18, asOf: "2026-10-23" }],
-  fetchedAt: "2026-10-24T13:00:00Z",
+  balances: [{ account: "Bank checking (U.S. Bank)", balance: 2050.86, asOf: "2026-11-02" }],
+  fetchedAt: "2026-11-03T13:00:00Z",
   live: false,
 };
 
