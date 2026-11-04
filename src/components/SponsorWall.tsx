@@ -42,6 +42,7 @@ import cellsiteSolutionsLogo from "@/assets/sponsors/cellsite-solutions.png";
 import yatesDesygnLogo from "@/assets/sponsors/yates-desygn.png";
 import vfwLogo from "@/assets/sponsors/vfw.png";
 import vanillaCyberLogo from "@/assets/sponsors/vanilla-cyber.png";
+import pattersonSheridanLogo from "@/assets/sponsors/patterson-sheridan.png";
 
 type Sponsor = {
   name: string;
@@ -187,6 +188,11 @@ const sponsorGroups: SponsorGroup[] = [
         name: "Yates Desygn",
         logo: yatesDesygnLogo,
         href: "https://yatesdesygn.com/",
+      },
+      {
+        name: "Patterson + Sheridan",
+        logo: pattersonSheridanLogo,
+        href: "https://www.pattersonsheridan.com/",
       },
       {
         name: "LUCID Vision Labs",
