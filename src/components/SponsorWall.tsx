@@ -42,6 +42,7 @@ import cellsiteSolutionsLogo from "@/assets/sponsors/cellsite-solutions.png";
 import yatesDesygnLogo from "@/assets/sponsors/yates-desygn.png";
 import vfwLogo from "@/assets/sponsors/vfw.png";
 import vanillaCyberLogo from "@/assets/sponsors/vanilla-cyber.png";
+import novateurLogo from "@/assets/sponsors/novateur.png";
 import pattersonSheridanLogo from "@/assets/sponsors/patterson-sheridan.png";
 
 type Sponsor = {
@@ -110,6 +111,15 @@ const sponsorGroups: SponsorGroup[] = [
         name: "Vanilla Cyber",
         logo: vanillaCyberLogo,
         href: "https://www.vanillacyber.com/",
+        tag: HARDWARE,
+      },
+      {
+        // Ashburn AI research firm (CTO Zeeshan Rasheed): donated a desktop with an RTX 2080 and
+        // 64 GB RAM for model training, picked up November 2026. Logo is the file they emailed
+        // (Oct 2026), to be used for this credit only.
+        name: "Novateur Research Solutions",
+        logo: novateurLogo,
+        href: "https://novateur.ai/",
         tag: HARDWARE,
       },
     ],
