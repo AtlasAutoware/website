@@ -55,7 +55,8 @@ type Sponsor = {
   place?: string;
   /** A sentence or two of thanks, shown on the featured partner card. */
   blurb?: string;
-  href: string;
+  /** Where the tile links. A sponsor with no website of its own leaves this out and the tile is not a link. */
+  href?: string;
   /** Short tag under the logo, e.g. for in-kind hardware sponsors. */
   tag?: string;
   /** The sponsor's own logo is white-on-dark, so it sits on a dark panel instead of white. */
@@ -69,6 +70,17 @@ type SponsorGroup = {
 };
 
 const HARDWARE = "Hardware";
+
+/** Type-only stand-in for a logo, for a sponsor that has none to send. */
+function ThomasFoundationBadge() {
+  return (
+    <div className="aa-foundation-badge" aria-hidden="true">
+      <span className="aa-foundation-badge__mono">AMT</span>
+      <span className="aa-foundation-badge__rule" />
+      <span className="aa-foundation-badge__sub">Charitable Foundation</span>
+    </div>
+  );
+}
 
 /**
  * The sponsor wall. Add a sponsor here once (logo file in src/assets/sponsors/) and it
@@ -205,6 +217,12 @@ const sponsorGroups: SponsorGroup[] = [
         href: "https://www.pattersonsheridan.com/",
       },
       {
+        // Falls Church family foundation: $250 gift, noted 7 Nov 2026. No logo or website of its
+        // own that we know of, so a type-only badge stands in and the tile is not a link.
+        name: "Adele M. Thomas Charitable Foundation, Inc.",
+        badge: <ThomasFoundationBadge />,
+      },
+      {
         name: "LUCID Vision Labs",
         logo: lucidLogo,
         href: "https://thinklucid.com/",
@@ -282,18 +300,23 @@ function Logo({ sponsor, className = "" }: { sponsor: Sponsor; className?: strin
 }
 
 function SponsorTile({ sponsor, large = false }: { sponsor: Sponsor; large?: boolean }) {
-  return (
-    <a
-      href={sponsor.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`aa-sponsor ${large ? "aa-sponsor--lg" : ""}`}
-    >
+  const inner = (
+    <>
       <Logo sponsor={sponsor} />
       <div className="aa-sponsor__meta">
         <p className="aa-sponsor__name">{sponsor.name}</p>
         {sponsor.tag ? <span className="aa-sponsor__tag">{sponsor.tag}</span> : null}
       </div>
+    </>
+  );
+  const className = `aa-sponsor ${large ? "aa-sponsor--lg" : ""}`;
+
+  if (!sponsor.href) {
+    return <div className={`${className} aa-sponsor--static`}>{inner}</div>;
+  }
+  return (
+    <a href={sponsor.href} target="_blank" rel="noopener noreferrer" className={className}>
+      {inner}
     </a>
   );
 }
