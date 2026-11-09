@@ -64,7 +64,7 @@ type Sponsor = {
 };
 
 type SponsorGroup = {
-  id: "partner" | "lab" | "gold" | "silver" | "bronze";
+  id: "partner" | "lab" | "gold" | "silver" | "bronze" | "individual";
   label: string;
   sponsors: Sponsor[];
 };
@@ -286,6 +286,15 @@ const sponsorGroups: SponsorGroup[] = [
       },
     ],
   },
+  {
+    // People who gave on their own rather than through a company. Shown as names only, no tiles.
+    id: "individual",
+    label: "Individual supporters",
+    sponsors: [
+      // Personal gift by PayPal through the donate page, November 2026.
+      { name: "Jenny Kay" },
+    ],
+  },
 ];
 
 function Logo({ sponsor, className = "" }: { sponsor: Sponsor; className?: string }) {
@@ -416,6 +425,18 @@ export function SponsorWall({ showCta = true }: { showCta?: boolean }) {
           </div>
         </Group>
       </div>
+
+      {byId.individual.sponsors.length ? (
+        <div className="mt-12">
+          <Group group={byId.individual}>
+            <ul className="aa-supporters">
+              {byId.individual.sponsors.map((s) => (
+                <li key={s.name}>{s.name}</li>
+              ))}
+            </ul>
+          </Group>
+        </div>
+      ) : null}
     </Row>
   );
 }

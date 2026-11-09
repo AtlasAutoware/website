@@ -1286,6 +1286,25 @@
   .aa-sponsor--static:hover .aa-sponsor__name {
     text-decoration-color: transparent;
   }
+  /* Individual supporters: names only, no logo tiles */
+  .aa-supporters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .aa-supporters li {
+    padding: 6px 14px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--aa-text);
+    border: 1px solid var(--aa-border);
+    border-radius: 9999px;
+    background: var(--aa-bg-base);
+  }
 
   /* ── Navbar ──────────────────────────────────────── */
   .aa-nav {
