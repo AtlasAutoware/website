@@ -82,6 +82,17 @@ function ThomasFoundationBadge() {
   );
 }
 
+/** Type-only stand-in for the Woman's Club of Springfield, which has not sent a logo file. */
+function WomansClubBadge() {
+  return (
+    <div className="aa-foundation-badge" aria-hidden="true">
+      <span className="aa-foundation-badge__mono">WCoS</span>
+      <span className="aa-foundation-badge__rule" />
+      <span className="aa-foundation-badge__sub">Springfield, Virginia</span>
+    </div>
+  );
+}
+
 /**
  * The sponsor wall. Add a sponsor here once (logo file in src/assets/sponsors/) and it
  * shows up on both the home page and the donate page.
@@ -221,6 +232,13 @@ const sponsorGroups: SponsorGroup[] = [
         // own that we know of, so a type-only badge stands in and the tile is not a link.
         name: "Adele M. Thomas Charitable Foundation, Inc.",
         badge: <ThomasFoundationBadge />,
+      },
+      {
+        // GFWC club in Springfield (president Shirley Coling). We showed the car at its meeting on
+        // 10 November 2026. Added 11 November 2026; no logo file yet, so a type-only badge stands in.
+        name: "Woman's Club of Springfield",
+        badge: <WomansClubBadge />,
+        href: "https://womansclubofspringfield.org/",
       },
       {
         name: "LUCID Vision Labs",
