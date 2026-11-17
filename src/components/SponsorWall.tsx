@@ -44,6 +44,7 @@ import vfwLogo from "@/assets/sponsors/vfw.png";
 import vanillaCyberLogo from "@/assets/sponsors/vanilla-cyber.png";
 import novateurLogo from "@/assets/sponsors/novateur.png";
 import pattersonSheridanLogo from "@/assets/sponsors/patterson-sheridan.png";
+import giulianiAssociatesLogo from "@/assets/sponsors/giuliani-associates.png";
 
 type Sponsor = {
   name: string;
@@ -239,6 +240,13 @@ const sponsorGroups: SponsorGroup[] = [
         name: "Woman's Club of Springfield",
         badge: <WomansClubBadge />,
         href: "https://womansclubofspringfield.org/",
+      },
+      {
+        // Architecture and engineering firm (president Mark Giuliani): $250 by PayPal on
+        // 16 November 2026. Logo is the one in his email signature.
+        name: "Giuliani Associates Architects",
+        logo: giulianiAssociatesLogo,
+        href: "https://www.giuliani.com/",
       },
       {
         name: "LUCID Vision Labs",
